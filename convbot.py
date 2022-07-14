@@ -77,6 +77,8 @@ def manzil(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('Bizning manzil: ')
     update.message.reply_location(longitude=49.779298, latitude=42.885564)
 
+def rasm(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text('I cannot convert your photo. Please send it as a FILE.')
 
 def echo(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
@@ -98,6 +100,7 @@ def main() -> None:
     dispatcher.add_handler(MessageHandler(Filters.text("Manzil"), manzil))
     dispatcher.add_handler(MessageHandler(Filters.text("Rasm to PDF"), receive_image))
     dispatcher.add_handler(MessageHandler(Filters.document, img_to_pdf))
+    dispatcher.add_handler(MessageHandler(Filters.photo, rasm))
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(
         Filters.text & ~Filters.command, echo))
